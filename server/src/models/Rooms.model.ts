@@ -26,6 +26,7 @@ const Rooms_schema = new mongoose.Schema({
     },
     image : [{
         type : String, 
+        default : null
     }],
     Rateperday : {
         type : Number,
@@ -39,8 +40,8 @@ const Rooms_schema = new mongoose.Schema({
         type : String,
         required : true
     }
-    
 
+} , {timestamps : true})
 
-
-})
+const Rooms = mongoose.model("Room" , Rooms_schema)
+export default Rooms;
