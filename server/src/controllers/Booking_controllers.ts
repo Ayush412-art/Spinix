@@ -2,9 +2,13 @@
 import { Request , Response} from 'express';
 // import bookings from '../models/Bookings.model';
 // import Rooms from '../models/Rooms.model';
-const stripe = require("stripe")();
+import dotenv from 'dotenv'
+dotenv.config();
 
-
+if(!process.env.stripe_secret_key){
+    console.log("stripe key is missing");
+}
+const stripe = require("stripe")(process.env.stripe_secret_key);
 
 const PostAllBookings = async(req : Request , res : Response) : Promise<void> =>{
         try{

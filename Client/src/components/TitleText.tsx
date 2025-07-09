@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import React from "react"
 function TitleText() {
   const words = ["Looking for Rooms...?"];
   const [text, setText] = useState("");

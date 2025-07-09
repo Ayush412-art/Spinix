@@ -2,8 +2,11 @@
 import { Request , Response } from "express";
 import {GoogleGenerativeAI} from "@google/generative-ai"
 
-const Api_key : any = "AIzaSyDrRjGqiJtRAo2JqJ1rXvVk8LcWtfK4420"
-const genAi  = new GoogleGenerativeAI(Api_key)
+
+if(!process.env.Api_key){
+        console.log("gemini api key is missing")
+}
+const genAi  = new GoogleGenerativeAI(process.env.Api_key!)
 
 const fetchDate = async(req : Request  , res : Response) : Promise<void> =>{
         const {position , startdate , enddate} = req.body;

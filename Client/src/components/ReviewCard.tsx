@@ -1,4 +1,4 @@
-import React from "react";
+
 import { FaQuoteLeft } from "react-icons/fa";
 import { ReviewProp } from "./Interfaces";
 const  ReviewCard  = (props : ReviewProp) => {
