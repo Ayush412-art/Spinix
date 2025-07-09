@@ -1,0 +1,170 @@
+import { roomProp } from "./Interfaces";
+import { useNavigate } from "react-router-dom";
+// import { useState } from "react";
+
+function Rooms({ data  , toDate , fromDate , totaldays}: roomProp) {
+
+  // const [currSlide , Setcurrslide] = useState(0) 
+      const uniqueId = data.room_id
+      const images = data.image;
+      const navigate = useNavigate()
+      // const total_slides = images.length;
+
+      // const handlerPrev = () =>{
+      //     Setcurrslide((prev) =>{
+      //      return prev === 0 ? total_slides - 1 : prev - 1
+      //  } ) 
+      // }
+
+      // const handlerNext = () =>{
+      //   Setcurrslide((prev) =>(
+      //     prev === total_slides - 1  ? 0 : prev + 1 
+      //   ))
+      // }
+      console.log(data.addressLink)
+  
+  return (
+    <section className="grid col-span-12 sm:col-span-6 lg:col-span-4  ">
+      <div className=" bg-white border border-gray-200 rounded-lg shadow-md max-w-sm mx-2 my-4">
+        <a href="#">
+          <img
+            className="rounded-t-lg h-[150px] w-full"
+            src={data.image[0]}
+            alt="hotelImage"
+          />
+        </a>
+        <div className="p-4">
+          
+          <div>
+            <p className="text-2xl">{data.title}</p>
+            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+              {data.description}
+            </p>
+          </div>
+          <div className="text-sm font-medium text-grey-700 dark:text-gray-500">
+            <p>Max-count : {data.max_count}</p>
+            <p>Location : {data.city}</p>
+            <div className="flex justify-between">
+              <p>Type : {data.hotel_type} </p>
+              <p className="font-medium text-lg text-black">
+                {data.Rateperday}₹
+              </p>
+            </div>
+          </div>
+          <div className="flex justify-end space-x-2 mt-2">
+            <button
+              data-modal-target={`modal-${uniqueId}`}
+              data-modal-toggle={`modal-${uniqueId}`}
+              type="button"
+              className="bg-black text-white px-3 py-1 rounded-lg hover:bg-gray-900"
+            >
+              View details
+            </button>
+
+            {(fromDate && toDate) && (
+            <button onClick={()=>navigate(`/BookingRoom/${data._id}` , {
+              state : {
+               todate :  toDate,
+               fromdate : fromDate,
+               rentperday : data.Rateperday,
+               max_count : data.max_count,
+               total_days : totaldays
+
+              }
+            })} className="bg-black text-white px-3 py-1 rounded-lg hover:bg-gray-900">
+              Book now
+            </button>
+            ) }
+          </div>
+        </div>
+      </div>
+
+      <div
+        id={`modal-${uniqueId}`}
+        aria-hidden="true"
+        className="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0  h-[calc(100%-1rem)] max-h-full"
+      >
+        <div className="relative p-4 w-full max-w-2xl max-h-full">
+          <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+              <h3 className="text-xl font-semibold  text-gray-900 dark:text-white">
+                {data.title}
+              </h3>            
+              <button
+                type="button"
+                className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                data-modal-hide={`modal-${uniqueId}`}
+              >
+                <svg
+                  className="w-3 h-3"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 14 14"
+                >
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+                  />
+                </svg>
+                <span className="sr-only">Close modal</span>
+              </button>
+            </div>
+
+            <div className="p-4 md:p-5 space-y-4">
+            <div id={"controls-carousel"} className="relative w-full" data-carousel="static">
+            
+            <div className="relative h-56 overflow-hidden rounded-lg md:h-96">
+             
+                <div className="hidden duration-700 ease-in-out" data-carousel-item>
+                    <img src={images[0]} alt="..." />
+                </div>
+                <div className="hidden duration-700 ease-in-out" data-carousel-item>
+                    <img src={images[1]} alt="..." />
+                </div>
+                <div className="hidden duration-700 ease-in-out" data-carousel-item>
+                    <img src={images[2]} alt="..." />
+                </div>
+                <div className="hidden duration-700 ease-in-out" data-carousel-item>
+                    <img src={images[3]} alt="..." />
+                </div>
+              
+            </div>
+
+            <div className="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
+                <button type="button" className="w-3 h-3 rounded-full" aria-current="true" aria-label="Slide 1" data-carousel-slide-to="0"></button>
+            </div>
+
+            <button type="button" className="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
+                <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                    <svg className="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 1 1 5l4 4"/>
+                    </svg>
+                    <span className="sr-only">Previous</span>
+                </span>
+            </button>
+            <button type="button" className="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
+                <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                    <svg className="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 9 4-4-4-4"/>
+                    </svg>
+                    <span className="sr-only">Next</span>
+                </span>
+            </button>
+        </div>
+              <div className="">
+                      <p className="text-lg sm:text-xl text-gray-500">{data.details}</p>
+                      <a href={data.addressLink}>view in map</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export default Rooms;
