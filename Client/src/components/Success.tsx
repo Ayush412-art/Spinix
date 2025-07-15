@@ -1,6 +1,6 @@
 
-
 function Success() {
+
   return (
     <div>
       Payment has been successfull completed!!
@@ -8,4 +8,4 @@ function Success() {
   )
 }
 
-export default Success
+export default Success;

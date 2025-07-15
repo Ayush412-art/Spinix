@@ -3,6 +3,7 @@ import axios from "axios"
 import bg_trip from "../assets/bg-trip.jpeg"
 import TrackBox from "./TrackBox"
 import { trackProp } from "./Interfaces"
+
 function Ai_planer() {
     const [location , setLocation] = useState("")
     const [startDate , setstartDate ] = useState("")

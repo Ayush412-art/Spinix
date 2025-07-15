@@ -4,7 +4,7 @@ import {createClient , RedisClientType} from 'redis'
 // Establishing redis connection 
      
      const redisClient : RedisClientType = createClient({
-        url : "redis://127.0.0.1:6379" , // general local url
+        url : "redis://127.0.0.1:6379" , 
         socket : {
             tls : false,
             reconnectStrategy: (attempts) => Math.min(attempts * 100, 3000),

@@ -5,22 +5,24 @@ import Rooms_Route from "../src/Routes/Rooms_Route";
 import userRouter from "../src/Routes/User_Route"
 import bookingRouter from "../src/Routes/BookRooms_Route";
 import OpenAi_Route from "../src/Routes/OpenAi_Route"
-
 import cors from 'cors';
 const app = express();
-
 app.use(cors<Request>())
 dotenv.config();
 
 connection()
 
+//Routes 
 app.use(express.json())
-
-app.use("/admin" , Rooms_Route);
-app.use("/user" , userRouter);
 app.use("/api" , bookingRouter);
-app.use("/openai" , OpenAi_Route )
+app.get("/" , (req  , res ) =>{
 
+            res.send("Hello from server");
+
+})
+app.use("/admin" , Rooms_Route);
+app.use("/users" , userRouter);
+app.use("/openai" , OpenAi_Route )
 
 
 app.listen("5055" , ()=>{
