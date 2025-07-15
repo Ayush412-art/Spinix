@@ -14,9 +14,9 @@ const  SignUp = () => {
   const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // 🔹 Input Validations
+    //  Input Validations
     if (!nameRef.current?.value.trim()) {
-      alert("Please enter employee name");
+      alert("Please enter your name");
       nameRef.current?.focus();
       return;
     }
@@ -43,14 +43,14 @@ const  SignUp = () => {
 
     try {
       const formData = {
-        name: nameRef.current.value.trim(),
+        username: nameRef.current.value.trim(),
         city: cityRef.current.value.trim(),
         mobile: mobRef.current.value.trim(),
         country: countryRef.current.value.trim(),
         password: passwordRef.current.value.trim(),
       };
 
-      const response = await axios.post("", formData);
+      const response = await axios.post("http://localhost:5055/users/signup", formData);
 
       if (response.status === 201) {
         alert("User created successfully!");

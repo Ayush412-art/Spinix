@@ -1,27 +1,12 @@
 import { roomProp } from "./Interfaces";
 import { useNavigate } from "react-router-dom";
-// import { useState } from "react";
+
 
 function Rooms({ data  , toDate , fromDate , totaldays}: roomProp) {
-
-  // const [currSlide , Setcurrslide] = useState(0) 
       const uniqueId = data.room_id
       const images = data.image;
       const navigate = useNavigate()
-      // const total_slides = images.length;
-
-      // const handlerPrev = () =>{
-      //     Setcurrslide((prev) =>{
-      //      return prev === 0 ? total_slides - 1 : prev - 1
-      //  } ) 
-      // }
-
-      // const handlerNext = () =>{
-      //   Setcurrslide((prev) =>(
-      //     prev === total_slides - 1  ? 0 : prev + 1 
-      //   ))
-      // }
-      console.log(data.addressLink)
+    
   
   return (
     <section className="grid col-span-12 sm:col-span-6 lg:col-span-4  ">

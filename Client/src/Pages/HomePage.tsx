@@ -5,7 +5,8 @@ import { DatePicker } from "antd";
 import type { DatePickerProps } from "antd";
 const { RangePicker } = DatePicker;
 import { hoteldataProp } from "../components/Interfaces";
-import dayjs from "dayjs";
+import BookingNavbar from "../components/BookingNavbar";
+import dayjs, { Dayjs } from "dayjs";
 import moment from "moment";
 
 function HomePage() {
@@ -26,8 +27,9 @@ function HomePage() {
     }
   };
 
-  const filterbyDate: DatePickerProps["onChange"] = (dates, dateStrings) => {
+  const filterbyDate: DatePickerProps["onChange"] = (dates : Dayjs, dateStrings : string | string[]) => {
     if (!dates) return;
+
     Setfromdate(dateStrings[0]);
     Settodate(dateStrings[1]);
 
@@ -43,8 +45,9 @@ function HomePage() {
 
 
   const SearchLocationHandler = () => {
+     const location = searchRef.current?.value?.toLowerCase().trim() || "";
 
-    if (!searchRef.current?.value) {
+    if (!location) {
       alert("Please enter the location");
       searchRef.current?.focus();
     }
@@ -80,7 +83,12 @@ function HomePage() {
           }
 
       }
-        if(avaliability){
+       const matchesLocation = location
+      ? room.city?.toLowerCase().includes(location)
+      : true;
+        
+
+        if(avaliability && matchesLocation){
           tmp_rooms.push(room)
         }
 
@@ -93,6 +101,7 @@ function HomePage() {
   }, []);
   return (
     <>
+    <BookingNavbar />
       <section>
         <div className="relative">
           <img
@@ -111,7 +120,7 @@ function HomePage() {
               />
               <RangePicker
                 format={"DD-MM-YYYY"}
-                onChange={filterbyDate}
+                onChange={()=>filterbyDate}
                 value={
                   fromDate && toDate
                     ? [
