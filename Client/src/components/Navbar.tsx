@@ -40,7 +40,7 @@ function Navbar() {
                    className="block py-2 px-3 text-white hover:text-blue-500 cursor-pointer rounded hover:bg-gray-100 md:hover:bg-transparent  md:p-0 dark:hover:bg-gray-700 "
                    onClick={()=> navigate("/Ai_planer")}
                 >
-                   Ai trip Planner
+                   <span className="text-xs absolute top-5 text-orange-500 right-[112px] animate-pulse">new</span>Ai trip Planner
                   </div>
                 </li>
               </ul>
