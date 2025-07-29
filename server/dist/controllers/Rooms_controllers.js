@@ -15,13 +15,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Rooms_model_1 = __importDefault(require("../models/Rooms.model"));
 const getallRooms = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        // check in cache memory
+        //mongo result
         const result = yield Rooms_model_1.default.find({});
-        console.log(result);
         if (result.length < 1) {
             res.status(404).json({ msg: "No room is there!" });
             return;
         }
         res.status(201).json(result);
+        return;
     }
     catch (err) {
         res.status(400).json(err);
@@ -32,6 +34,7 @@ const RegisterRooms = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         const newroom = new Rooms_model_1.default(req.body);
         yield newroom.save();
         res.status(200).json({ msg: "A new room added in list" });
+        return;
     }
     catch (err) {
         res.status(400).json("failed to add new room " + err);
@@ -40,11 +43,12 @@ const RegisterRooms = (req, res) => __awaiter(void 0, void 0, void 0, function* 
 const getRoombyId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id } = req.params;
-        const result = yield Rooms_model_1.default.findOne({ _id: id });
+        const result = yield Rooms_model_1.default.findById(id);
         if (!result) {
-            res.status(404).json({ msg: "room not found" });
+            return res.status(404).json({ msg: "room not found" });
         }
         res.status(200).json(result);
+        return;
     }
     catch (err) {
         res.status(400).json(err);

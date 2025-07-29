@@ -9,6 +9,17 @@ const Rooms_schema = new mongoose_1.default.Schema({
         type: String,
         required: true
     },
+    room_id: {
+        type: String,
+        default: 0,
+    },
+    details: {
+        type: String,
+    },
+    addressLink: {
+        type: String,
+        requied: true
+    },
     description: {
         type: String,
         default: "Not available"
@@ -35,12 +46,23 @@ const Rooms_schema = new mongoose_1.default.Schema({
         required: true
     },
     current_booking: [{
-            type: String,
+            booking_id: {
+                type: mongoose_1.default.Schema.Types.ObjectId,
+                ref: "bookings"
+            },
+            from_date: {
+                type: String,
+                required: true,
+            },
+            to_date: {
+                type: String,
+                required: true
+            }
         }],
     hotel_type: {
         type: String,
         required: true
     }
 }, { timestamps: true });
-const Rooms = mongoose_1.default.model("Room", Rooms_schema);
+const Rooms = mongoose_1.default.model("Rooms", Rooms_schema);
 exports.default = Rooms;
